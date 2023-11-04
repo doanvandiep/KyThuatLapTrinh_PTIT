@@ -41,42 +41,23 @@ string mulString(string s1,string s2)
 	}
 	return ans.empty()?"0":ans;
 }
-int main()
-{
-	ifstream ip("bignumber.in");
-    ofstream of("bignumber.out");
-     int t;
-     ip>>t;
-     string line;
-     getline(ip, line);
-     while(getline(ip,line)){
-         string s=line;
-     	string s1="";
-     	string s2="";
-     	char c;
-     	int j;
-     	for(int i=0;i<s.size();i++){
-     		if(s[i]>='0'&&s[i]<='9'){
-     			s1+=s[i];
-		}
-		else if(s[i]=='+'||s[i]=='*'){
-			j=i;
-			c=s[i];
-			break;
-		}
-		 }
-		 for(int i=j+1;i<s.size();i++){
-		 	if(s[i]>='0'&&s[i]<='9')
-		 	s2+=s[i];
-		 }
-		string s3;
-		if(c=='+'){
-			s3=addString(s1,s2);
-		}
-		else{
-			s3=mulString(s1,s2);
-		}
-		 of<<s3<<"\n";
-	 }
-	return 0;
+int main() {
+    ifstream inputFile("bignumber.in"); // Mở tệp đầu vào
+    ofstream outputFile("bignumber.out"); // Mở tệp kết quả
+    int t;
+    inputFile >> t; // Đọc số lượng trường hợp thử nghiệm từ tệp đầu vào
+
+    for (int i = 0; i < t; i++) {
+        string s1, s2, s3;
+        inputFile >> s1 >> s2 >> s3; // Đọc các chuỗi từ tệp đầu vào
+
+        if (s2 == "+") {
+            outputFile << addString(s1, s3) << endl; // Gọi hàm cộng và ghi kết quả vào tệp kết quả
+        } else if (s2 == "*") {
+            outputFile << mulString(s1, s3) << endl; // Gọi hàm nhân và ghi kết quả vào tệp kết quả
+        }
+    }
+    inputFile.close(); // Đóng tệp đầu vào
+    outputFile.close(); // Đóng tệp kết quả
+    return 0;
 }
