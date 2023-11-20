@@ -1,34 +1,40 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define mod 29 
-int tinh(int x,int p){
-	x=x%mod;
-	p=p%(mod-1);//dinh ly fermat nho 
-	if(p==0){
-		return 0;
-	}
-	else{
-		int t=1;
-		for(int i=0;i<p;i++){
-			t=(t*x)%mod;// tinh toan x^p%mod 
+#define ll unsigned long long int
+ll sumModule(ll a,ll x)
+{
+    ll result=1;
+    while(x>0)
+    {
+    	if(x%2==1)
+    	{
+    		result=(result*a)%29;
 		}
-		t=t-1;
-		while(t%(x-1)!=0){
-			t+=mod;
-		}
-		return t/(x-1);
+		a=(a*a)%29;
+		x/=2;	
 	}
+	return result;
 }
-int main(){
-	int t;
-	cin>>t;
-	while(t--){
-		int x;
-		cin>>x;
-		int ans;
-		ans=(tinh(2,2*x+1))%mod;
-		ans=(ans*tinh(3,x+1))%mod;
-		ans=(ans*tinh(167,x+1))%mod;
-		cout<<ans<<"\n";
+ll Module(ll a,ll b)
+{
+	return a*sumModule(b,27); // a/b % songto = a*b^(songto-2)%29
+}
+int main()
+{
+	int t; cin>> t;
+	while(t--)
+	{
+		ll x;
+		cin >> x;
+		ll a=sumModule(2,2*x+1)-1;
+		if(a<0) a+=29;
+		ll b=Module(a,1);
+		ll c=sumModule(3,x+1)-1;
+		if(c<0) c+=29;
+		ll d=Module(c,2);
+		ll e=sumModule(167,x+1)-1;
+		if(e<0) e+=29;
+		ll f=Module(e,166);
+		cout << (b*d*f)%29 << endl;
 	}
 }
