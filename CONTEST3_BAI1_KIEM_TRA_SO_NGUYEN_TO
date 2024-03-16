@@ -1,0 +1,15 @@
+from math import*
+
+if __name__ == "__main__":
+    check = 0
+    n = int(input())
+    if n < 2:
+        print("NO")
+    else:
+        for i in range(2, int(sqrt(n))+1):
+            if n % i == 0:
+                print("NO")
+                check = 1
+                break
+        if check ==0 :
+            print("YES")
